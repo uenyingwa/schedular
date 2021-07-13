@@ -1,24 +1,83 @@
-# README
+# Schedular API
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+## Overview
 
-Things you may want to cover:
+This API enables student to schedule a call with their mentors. The API is RESTFUL and returns results in JSON. The API supports HTTP and HTTPS. It uses token-based authentication.
 
-* Ruby version
+## Endpoints
 
-* System dependencies
+- #### Day Schedule
 
-* Configuration
+  - ##### Agenda
 
-* Database creation
+    ```
+      GET localhost:3000/api/v1/mentors/{mentor_id}/agenda?date={date}
+    ```
 
-* Database initialization
+    - mentor_id(Integer): required
+    - date(Param): required. Date in format(yyyy-mm-dd)
+- #### Appointments
 
-* How to run the test suite
+  - ##### Create an Appointment
 
-* Services (job queues, cache servers, search engines, etc.)
+    ```
+      POST localhost:3000/api/v1/mentors/{mentor_id}/appointments
+    ```
 
-* Deployment instructions
+    - mentor_id(Integer): required
+    - Body:
 
-* ...
+      - student_id(String): required
+      - description(String): required
+      - begin_at(String): required
+  - ##### Get an Appointment
+
+    ```
+       GET localhost:3000/api/v1/mentors{mentor_id}/appointments/{id}
+    ```
+
+    - mentor_id(Integer): required
+    - id(Integer): required
+  - ##### Update an Appointment
+
+    ```
+    	PUT localhost:3000/api/v1/mentors{mentor_id}/appointments/{id}
+    ```
+
+    - mentor_id(Integer): required
+    - id(Integer): required
+    - Body:
+
+      - student_id(String)
+      - description(String)
+      - begin_at(String)
+  - ##### Delete an Appointment
+
+    ```
+    	GET localhost:3000/api/v1/mentors{mentor_id}/appointments/{id}
+    ```
+
+    - mentor_id(Integer): required
+    - id(Integer): required
+- [See more documentation and sample calls here](https://documenter.getpostman.com/view/1302391/Tzm9iDyr)
+
+## Running Locally
+
+- #### Installation
+
+  - Ruby 3.0.0
+  - Rails 6.1.3
+- #### Setting up
+
+  - git clone
+  - Install dependencies: bundle install
+  - rails db:setup
+  - rails db:migrate
+  - rails db:seed
+- #### Running
+
+  - rails s
+  - Go to localhost:3000/api/v1/{endpoint}
+- #### Running Specs
+
+  - rspec
