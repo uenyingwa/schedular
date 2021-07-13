@@ -6,6 +6,7 @@ class Appointment < ApplicationRecord
 
   validates :begin_at, :end_at, :description, :mentor_id, :student_id, presence: true
 
+  scope :booked, ->(time_range) { where(begin_at: time_range) }
   scope :overlapping, ->(range) { where('(begin_at, end_at) OVERLAPS (?, ?)', range.first, range.last) }
 
   def overlapping?
